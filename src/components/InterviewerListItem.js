@@ -5,8 +5,8 @@ var classNames = require('classnames');
 
 export default function InterviewerListItem(props) {
 
-  const {name, avatar} = props;
-  const interviewerClass = classNames("interviewers__item", {"interviewers__item--selected":props.selected});
+  const {name, avatar, selected} = props;
+  const interviewerClass = classNames("interviewers__item", {"interviewers__item--selected": selected});
   return (
     <li className={interviewerClass}>
       <img
@@ -14,7 +14,7 @@ export default function InterviewerListItem(props) {
         src={avatar}
         alt={name}
       />
-      {name}
+      {selected && name}
     </li>
   );
 }
