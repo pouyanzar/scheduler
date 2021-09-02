@@ -1,7 +1,7 @@
 import React from 'react';
 import "components/Appointment/styles.scss";
 
-export default function Error() {
+export default function Error(props) {
 
   const {message} = props;
   return (
