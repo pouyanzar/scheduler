@@ -16,6 +16,7 @@ import Empty from "components/Appointment";
 import Show from "components/Appointment";
 import Confirm from "components/Appointment";
 import Status from "components/Appointment";
+import Error from "components/Appointment";
 
 storiesOf("DayListItem", module)
   .addParameters({
@@ -168,4 +169,10 @@ storiesOf("Appointment", module)
   ))
   .add("Status", () => (
     <Status message="Deleting" />
+  ))
+  .add("Error", () => (
+    <Error 
+      message="Could not delete the appointment."
+      onClose={action("onClose")}
+    />
   ));
