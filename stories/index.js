@@ -14,7 +14,7 @@ import Appointment from "components/Appointment";
 import Header from "components/Appointment";
 import Empty from "components/Appointment";
 import Show from "components/Appointment";
-import { interfaceDeclaration } from "@babel/types";
+import Confirm from "components/Appointment";
 
 storiesOf("DayListItem", module)
   .addParameters({
@@ -156,5 +156,12 @@ storiesOf("Appointment", module)
       avatar={interviewer.avatar}
       onEdit={action("onEdit")}
       onDelete={action("onDelete")}
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm
+      message="Delete the appointment?"
+      onConfirm={action("onConfirm")}
+      onCancel={action("onCancel")}
     />
   ));
