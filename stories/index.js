@@ -17,6 +17,7 @@ import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 
 storiesOf("DayListItem", module)
   .addParameters({
@@ -174,5 +175,21 @@ storiesOf("Appointment", module)
     <Error 
       message="Could not delete the appointment."
       onClose={action("onClose")}
+    />
+  ))
+  .add("Form Creating", () => (
+    <Form 
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Form Editing", () => (
+    <Form 
+      name="student"
+      interviewers={interviewers}
+      interviewer={1}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
     />
   ));
