@@ -15,6 +15,7 @@ import Header from "components/Appointment";
 import Empty from "components/Appointment";
 import Show from "components/Appointment";
 import Confirm from "components/Appointment";
+import Status from "components/Appointment";
 
 storiesOf("DayListItem", module)
   .addParameters({
@@ -164,4 +165,7 @@ storiesOf("Appointment", module)
       onConfirm={action("onConfirm")}
       onCancel={action("onCancel")}
     />
+  ))
+  .add("Status", () => (
+    <Status message="Deleting" />
   ));
