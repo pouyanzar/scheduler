@@ -13,6 +13,8 @@ import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment";
 import Header from "components/Appointment";
 import Empty from "components/Appointment";
+import Show from "components/Appointment";
+import { interfaceDeclaration } from "@babel/types";
 
 storiesOf("DayListItem", module)
   .addParameters({
@@ -145,4 +147,14 @@ storiesOf("Appointment", module)
   .add("Appointment", () => (<Appointment />))
   .add("Appointment with time", () => (<Appointment time='12pm' />))
   .add("Header", () => (<Header time='12pm' />))
-  .add("Empty", () => (<Empty onAdd={action("onAdd")} />));
+  .add("Empty", () => (<Empty onAdd={action("onAdd")} />))
+  .add("Show", () => (
+    <Show 
+      student="Linda Miller-Jones"
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      onEdit={action("onEdit")}
+      onDelete={action("onDelete")}
+    />
+  ));
