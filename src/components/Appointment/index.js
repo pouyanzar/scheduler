@@ -3,6 +3,7 @@ import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
 import "components/Appointment/styles.scss";
+import useVisualMode from 'hooks/useVisualMode';
 
 export default function Appointment(props) {
   const {time, interview} = props;
