@@ -34,20 +34,29 @@ export default function Application(props) {
   }, []);
 
   function bookInterview(id, interview) {
+    console.log("start booking...");
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: { ...interview },
     };
-    console.log(id, interview);
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      [id]: appointment,
     };
-
-    setState({
-      ...state,
-      appointments
-    });
+    
+    return new Promise((resolve, reject) =>
+      axios
+        .put(`http://localhost:8001/api/appointments/${id}`, { interview })
+        .then((result) => {
+          resolve(result);
+          setState((prev) => ({
+            ...prev,
+            appointments,
+          }));
+          console.log(state.appointments);
+        })
+        .catch((err) => reject(err))
+    );
   }
 
   return (
