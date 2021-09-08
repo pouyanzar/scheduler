@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
@@ -15,9 +15,10 @@ export default function Appointment(props) {
     interview,
     interviewers,
     bookInterview,
-    appointmentId,
+    id,
     cancelInterview,
   } = props;
+  console.log(props)
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -30,7 +31,8 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  let message = "";
+
+  const [error, setError] = useState("");
 
   function save(name, interviewer) {
     const interview = {
@@ -38,10 +40,11 @@ export default function Appointment(props) {
       interviewer,
     };
     transition(SAVING);
-    bookInterview(appointmentId, interview)
+    bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => {
+      .catch((err) => {
         transition(ERROR_SAVE, true);
+        setError("Cannot save the appointment!")
       });
   }
 
@@ -51,10 +54,11 @@ export default function Appointment(props) {
 
   function destroy() {
     transition(DELETING, true);
-    cancelInterview(appointmentId)
+    cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => {
+      .catch((err) => {
         transition(ERROR_DELETE, true);
+        setError("Cannot delete the appointment!")
       });
   }
 
@@ -102,13 +106,13 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_DELETE && (
         <Error 
-          message="Cannot delete the appointment!" 
+          message={error} 
           onClick={() => back()}
         />
       )} 
       {mode === ERROR_SAVE && (
         <Error 
-          message="Cannot save the appointment!" 
+          message={error} 
           onClick={() => back()}
           />
       )} 
