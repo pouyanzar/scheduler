@@ -30,7 +30,6 @@ export default function Form(props) {
             onChange={e => setName(e.target.value)}
           />
         </form>
-        {console.log(interviewer)}
         <InterviewerList interviewers={props.interviewers} interviewer={interviewer} setInterviewer={setInterviewer} />
       </section>
       <section className="appointment__card-right">

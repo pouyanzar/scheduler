@@ -34,7 +34,6 @@ export default function Application(props) {
   }, []);
 
   function bookInterview(id, interview) {
-    console.log("start booking...");
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -43,7 +42,7 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment,
     };
-    
+
     return new Promise((resolve, reject) =>
       axios
         .put(`http://localhost:8001/api/appointments/${id}`, { interview })
@@ -53,10 +52,24 @@ export default function Application(props) {
             ...prev,
             appointments,
           }));
-          console.log(state.appointments);
         })
         .catch((err) => reject(err))
     );
+  }
+
+  function cancelInterview(id) {
+    
+    return new Promise((resolve, reject) => {
+      axios.delete(`http://localhost:8001/api/appointments/${id}`, {id})
+      .then((result) => {
+        resolve(result);
+        setState((prev) => ({
+          ...prev,
+          ...prev.appointments[id].interview = null
+        }));
+      })
+      .catch(err => reject(err))
+    });
   }
 
   return (
@@ -84,11 +97,12 @@ export default function Application(props) {
           return (
             <Appointment
               key={appointment.id}
-              id={appointment.id}
+              appointmentId={appointment.id}
               time={appointment.time}
               interview={interview}
               interviewers={interviewers}
               bookInterview={bookInterview}
+              cancelInterview={cancelInterview}
             />
           );
         })}
