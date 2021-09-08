@@ -26,6 +26,7 @@ export default function useApplicationData() {
     }, []);
   
     function bookInterview(id, interview) {
+
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview },
@@ -34,7 +35,8 @@ export default function useApplicationData() {
         ...state.appointments,
         [id]: appointment,
       };
-  
+      const day = state.days.filter(day => state.day === day.name);
+
       return new Promise((resolve, reject) =>
         axios
           .put(`http://localhost:8001/api/appointments/${id}`, { interview })
@@ -43,6 +45,7 @@ export default function useApplicationData() {
             setState((prev) => ({
               ...prev,
               appointments,
+              ...prev.days[day[0].id - 1].spots--
             }));
           })
           .catch((err) => reject(err))
@@ -50,14 +53,15 @@ export default function useApplicationData() {
     }
   
     function cancelInterview(id) {
-      
+      const day = state.days.filter(day => state.day === day.name);
       return new Promise((resolve, reject) => {
         axios.delete(`http://localhost:8001/api/appointments/${id}`, {id})
         .then((result) => {
           resolve(result);
           setState((prev) => ({
             ...prev,
-            ...prev.appointments[id].interview = null
+            ...prev.appointments[id].interview = null,
+            ...prev.days[day[0].id - 1].spots++
           }));
         })
         .catch(err => reject(err))

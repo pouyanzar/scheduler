@@ -18,7 +18,6 @@ export default function Appointment(props) {
     id,
     cancelInterview,
   } = props;
-  console.log(props)
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
