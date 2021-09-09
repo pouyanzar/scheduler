@@ -21,3 +21,11 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Screenshots
+
+!["Showing appointments"](https://github.com/pouyanzar/scheduler/blob/master/docs/appointments.png?raw=true)
+
+!["Appointment form"](https://github.com/pouyanzar/scheduler/blob/master/docs/appointment-form.png?raw=true)
+
+!["Warning and error handling"](https://github.com/pouyanzar/scheduler/blob/master/docs/warning-error-handling.png?raw=true)

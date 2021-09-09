@@ -54,9 +54,6 @@ export default function Application(props) {
       
         {/* renders appointments */}
         {appointments}
-
-        {/* last appointment of the day */}
-        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
