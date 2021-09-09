@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 import "components/Appointment/styles.scss";
 
+//displays booked interview info
 export default function Show(props) {
-  const {student, interviewer, onDelete, onEdit} = props;
+  const { student, interviewer, onDelete, onEdit } = props;
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">
@@ -29,5 +30,5 @@ export default function Show(props) {
         </section>
       </section>
     </main>
-  )
+  );
 }

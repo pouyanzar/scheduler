@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 import "components/Appointment/styles.scss";
 
+//Make possible for users to add appointment on the blank spots
 export default function Empty(props) {
-  const {onAdd} = props;
+  const { onAdd } = props;
   return (
     <main className="appointment__add">
       <img

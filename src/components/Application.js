@@ -9,17 +9,15 @@ import {
 } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
+//Main application component
 export default function Application(props) {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
+  // defining variables from custom hook useApplicationData
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
-  const interviewers = getInterviewersForDay(state, state.day)
+  const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day).map(
-    appointment => {
+    (appointment) => {
       return (
         <Appointment
           key={appointment.id}
@@ -29,10 +27,9 @@ export default function Application(props) {
           bookInterview={bookInterview}
           cancelInterview={cancelInterview}
         />
-      )
+      );
     }
-  )
-
+  );
 
   return (
     <main className="layout">
@@ -44,6 +41,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
+          {/* renders days with remaining spots for booking appointment on the sidebar */}
           <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
@@ -53,7 +51,11 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
+      
+        {/* renders appointments */}
         {appointments}
+
+        {/* last appointment of the day */}
         <Appointment key="last" time="5pm" />
       </section>
     </main>

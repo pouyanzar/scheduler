@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
@@ -9,15 +9,12 @@ import Error from "./Error";
 import "components/Appointment/styles.scss";
 import useVisualMode from "hooks/useVisualMode";
 
+//Handles appointment functionality
 export default function Appointment(props) {
-  const {
-    time,
-    interview,
-    interviewers,
-    bookInterview,
-    id,
-    cancelInterview,
-  } = props;
+  const { time, interview, interviewers, bookInterview, id, cancelInterview } =
+    props;
+
+  //constans for mode status
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -33,17 +30,18 @@ export default function Appointment(props) {
 
   const [error, setError] = useState("");
 
+  //Books an appointment
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer,
     };
     transition(SAVING);
-    bookInterview(id, interview)
+    bookInterview(id, interview) //sends a put request to add the interview info into database and updates the state
       .then(() => transition(SHOW))
       .catch((err) => {
         transition(ERROR_SAVE, true);
-        setError("Cannot save the appointment!")
+        setError("Cannot save the appointment!");
       });
   }
 
@@ -51,13 +49,14 @@ export default function Appointment(props) {
     transition(CONFIRM);
   }
 
+  //Cancel an appointment
   function destroy() {
     transition(DELETING, true);
-    cancelInterview(id)
+    cancelInterview(id) //sends a delete requeset to delete an interview record from database and updates the state
       .then(() => transition(EMPTY))
       .catch((err) => {
         transition(ERROR_DELETE, true);
-        setError("Cannot delete the appointment!")
+        setError("Cannot delete the appointment!");
       });
   }
 
@@ -79,6 +78,8 @@ export default function Appointment(props) {
           onEdit={editAppointment}
         />
       )}
+
+      {/* Confirm to delete an appointment */}
       {mode === CONFIRM && (
         <Confirm
           onCancel={() => back()}
@@ -86,7 +87,11 @@ export default function Appointment(props) {
           message="Are you sure to delete the appointment?"
         />
       )}
+
+      {/* Delete an appointment */}
       {mode === DELETING && <Status message={DELETING} />}
+
+      {/* Create an appointment  */}
       {mode === CREATE && (
         <Form
           interviewers={interviewers}
@@ -94,6 +99,8 @@ export default function Appointment(props) {
           onSave={save}
         />
       )}
+
+      {/* Edit an appointment */}
       {mode === EDIT && (
         <Form
           interviewers={interviewers}
@@ -103,19 +110,13 @@ export default function Appointment(props) {
           interviewer={interview.interviewer.id}
         />
       )}
+
+      {/* Error handling mode */}
       {mode === ERROR_DELETE && (
-        <Error 
-          message={error} 
-          onClick={() => back()}
-        />
-      )} 
-      {mode === ERROR_SAVE && (
-        <Error 
-          message={error} 
-          onClick={() => back()}
-          />
-      )} 
-      
+        <Error message={error} onClick={() => back()} />
+      )}
+      {mode === ERROR_SAVE && <Error message={error} onClick={() => back()} />}
+
       <article className="appointment"></article>
     </>
   );
