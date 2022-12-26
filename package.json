@@ -1,7 +1,7 @@
 {
   "name": "scheduler",
   "version": "0.1.0",
-  "engine": {
+  "engines": {
     "node": "16.14.2",
     "npm": "8.5.0"
   },
